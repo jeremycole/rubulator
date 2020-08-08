@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'rubulator'
+require 'readline'
+
+rubulator = Rubulator.new
+
+Readline.completer_word_break_characters = ' '
+Readline.completion_append_character = ' '
+Readline.completion_proc = proc do |partial|
+  completions = rubulator.operators + rubulator.functions + rubulator.constants + rubulator.variable_names
+  completions.select { |v| v.start_with?(partial) }.sort
+end
+
+puts "Rubulator version #{Rubulator::VERSION} on Ruby version #{RUBY_VERSION}."
+puts 'Supported operations:'
+puts "  * Operators: #{rubulator.operators.sort.join(', ')}"
+puts "  * Functions: #{rubulator.functions.sort.join(', ')}"
+puts "  * Constants: #{rubulator.constants.sort.join(', ')}"
+puts
+
+while (line = Readline.readline("\u001b[32;1m>>\u001b[0m \u001b[1m", true))
+  print "\u001b[0m"
+  begin
+    result = rubulator.calculate(line)
+    if result
+      puts format("\u001b[34m$$ <- \u001b[1m%<result>g\u001b[0m", result: result)
+      puts
+    end
+  rescue Rubulator::CalculationError => e
+    puts "\u001b[31m!! Error: #{e}\u001b[0m"
+    puts
+  end
+end
+
+print "\u001b[0m\n"
