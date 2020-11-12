@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency('readline', '~> 0')
   spec.add_dependency('readline-ext', '~> 0.1.0')
 
-  spec.add_development_dependency('rubocop', '~> 1.0.0')
+  spec.add_development_dependency('rubocop', '~> 1.3.0')
 end
