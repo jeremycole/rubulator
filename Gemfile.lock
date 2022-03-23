@@ -18,7 +18,7 @@ GEM
     rake (13.0.3)
     readline (0.0.2)
       reline
-    readline-ext (0.1.1)
+    readline-ext (0.1.4)
     regexp_parser (2.1.1)
     reline (0.1.4)
       io-console (~> 0.5)
